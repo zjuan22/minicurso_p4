@@ -10,7 +10,7 @@ from scapy.all import sniff
 from scapy.all import Ether, IP, IPv6, TCP, ICMP, GRE
 NUM_PACKETS = 1 
 parser = argparse.ArgumentParser(description='run_test.py')
-parser.add_argument('--h2h1',
+parser.add_argument('--dl',
 		help='If set pkts are send through veth2 to veth1',
 		action="store_true",
 		default=False)
@@ -117,7 +117,7 @@ for p, iface in port_map.items():
 send_socket = socket.socket(socket.AF_PACKET, socket.SOCK_RAW,
 		socket.htons(0x03))
 
-if args.h2h1:
+if args.dl:
     pkt = Ether(dst='00:aa:bb:00:00:a5',src='00:55:00:00:00:00')/IP(dst='192.168.0.1',src='192.168.0.10')/TCP(sport=80, dport=20)/"NAT DL"
     port2send = port_map[2]
 
